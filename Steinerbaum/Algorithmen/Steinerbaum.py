@@ -5,7 +5,6 @@ Created on 18.10.2016
 '''
 
 from Datatypes.Graph import Graph
-from _mysql import NULL
 
 def createTestGraph():
     graph = Graph()
@@ -72,6 +71,7 @@ def sumShortestPath(end_node):
 '''
 if __name__ == '__main__':
     graph = createTestGraph()
+    graph.toString()
     ''' 
     terminals = graph.getTerminals()
     for start_terminal_id in terminals:

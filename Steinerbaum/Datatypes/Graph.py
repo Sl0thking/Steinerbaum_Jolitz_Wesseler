@@ -17,7 +17,6 @@ class Graph(object):
     def addEdge(self, start_node_id, end_node_id, value):
         # adds the edge to the nodeMap. Will be insert in the list_of_edges of the node-key
         try:
-            print self.__nodeMap.keys()
             for node in self.__nodeMap.keys():
                 if node.getID() == start_node_id:
                     start_node = node
@@ -70,8 +69,10 @@ class Graph(object):
 
     def getEdges(self, node_id):
         edges = []
-        for edge in self.__nodeMap[node_id]:
-            edges.append(edge)
+        for node in self.__nodeMap.keys():
+            if node.getID() == node_id:
+                for edge in self.__nodeMap[node]:
+                    edges.append(edge)
         return edges
 
     def getTerminals(self):
@@ -85,5 +86,5 @@ class Graph(object):
     def toString(self):
         for key in self.__nodeMap.keys():
             print "KEY: "+key.toString()
-            for edge in self.getEdges(key.getID())
+            for edge in self.getEdges(key.getID()):
                 print edge.toString
