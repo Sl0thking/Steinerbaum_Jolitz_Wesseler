@@ -16,31 +16,32 @@ class Graph(object):
     
     def addEdge(self, start_node_id, end_node_id, value):
         # adds the edge to the nodeMap. Will be insert in the list_of_edges of the node-key
-        try:
-            for node in self.__nodeMap.keys():
-                if node.getID() == start_node_id:
-                    start_node = node
-                if node.getID() == end_node_id:
-                    end_node = node
+        #try:
+        print self.__nodeMap.keys()
+        for node in self.__nodeMap.keys():
+            if node.getID() == start_node_id:
+                start_node = node
+            if node.getID() == end_node_id:
+                end_node = node
 
-            start = False
-            for edge in self.__nodeMap[start_node_id]:
-                if edge.getStartNode().getID() == start_node_id:
-                    start = True
-            if start:
-                new_edge = Edge(start_node, end_node, value)
-                self.__nodeMap[start_node_id].append(new_edge)
+        start = False
+        for edge in self.__nodeMap[start_node]:
+            if edge.getStartNode().getID() == start_node_id:
+                start = True
+        if start:
+            new_edge = Edge(start_node, end_node, value)
+            self.__nodeMap[start_node_id].append(new_edge)
 
-            end = False
-            for edge in self.__nodeMap[end_node_id]:
-                if edge.getEndNode().getID() == end_node_id:
-                    end = True
-            if end:
-                new_edge = Edge(end_node, start_node, value)
-                self.__nodeMap[end_node_id].append(new_edge)
+        end = False
+        for edge in self.__nodeMap[end_node]:
+            if edge.getEndNode().getID() == end_node_id:
+                end = True
+        if end:
+            new_edge = Edge(end_node, start_node, value)
+            self.__nodeMap[end_node_id].append(new_edge)
 
-        except Exception, e:
-            print "EXCEPTION in Graph.addEdge "+str(e)
+        #except Exception, e:
+        #print "EXCEPTION in Graph.addEdge "+str(e)
 
     def modifyEdgeValue(self, start_node_id, end_node_id, value):
         for edge_list in self.__nodeMap.values():

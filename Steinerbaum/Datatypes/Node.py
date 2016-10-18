@@ -15,3 +15,6 @@ class Node(object):
 
     def setTerminal(self, is_terminal):
         self.is_terminal = is_terminal
+        
+    def __hash__(self, *args, **kwargs):
+        return hash(self.node_id)
