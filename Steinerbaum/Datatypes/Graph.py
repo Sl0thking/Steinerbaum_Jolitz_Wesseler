@@ -23,21 +23,21 @@ class Graph(object):
                 if node.getID() == end_node_id:
                     end_node = node
 
-            start = False
+            start = True
             for edge in self.__nodeMap[start_node]:
                 if edge.getStartNode().getID() == start_node_id:
-                    start = True
+                    start = False
             if start:
                 new_edge = Edge(start_node, end_node, value)
-                self.__nodeMap[start_node_id].append(new_edge)
+                self.__nodeMap[start_node].append(new_edge)
 
-            end = False
+            end = True
             for edge in self.__nodeMap[end_node]:
                 if edge.getEndNode().getID() == end_node_id:
-                    end = True
+                    end = False
             if end:
                 new_edge = Edge(end_node, start_node, value)
-                self.__nodeMap[end_node_id].append(new_edge)
+                self.__nodeMap[end_node].append(new_edge)
 
         except Exception, e:
             print "EXCEPTION in Graph.addEdge "+str(e)
@@ -87,4 +87,4 @@ class Graph(object):
         for key in self.__nodeMap.keys():
             print "KEY: "+key.toString()
             for edge in self.getEdges(key.getID()):
-                print edge.toString
+                print edge.toString()
