@@ -1,17 +1,27 @@
-'''
-Created on 18.10.2016
-
-@author: Slothking
-'''
 
 class Edge(object):
-    '''
-    classdocs
-    '''
+    '''classdocs'''
 
+    def __init__(self, start_node, end_node, value):
+        '''Constructor'''
+        self.start_node = start_node
+        self.end_node = end_node
+        self.value = float(value)
 
-    def __init__(self, params):
-        '''
-        Constructor
-        '''
-        
+    def getStartNode(self):
+        return self.start_node
+
+    def getEndNode(self):
+        return self.end_node
+
+    def getValue(self):
+        return self.value
+
+    def setStartNode(self, start_node):
+        self.start_node = start_node
+
+    def setEndNode(self, end_node):
+        self.end_node = end_node
+
+    def setValue(self, value):
+        self.value = float(value)
