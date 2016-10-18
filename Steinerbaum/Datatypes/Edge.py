@@ -25,3 +25,6 @@ class Edge(object):
 
     def setValue(self, value):
         self.value = float(value)
+
+    def toString(self):
+        return "Edge from "+str(self.start_node.getID())+" to "+str(self.end_node.getID())+" - VALUE: "+str(self.value)

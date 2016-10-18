@@ -15,6 +15,9 @@ class Node(object):
 
     def setTerminal(self, is_terminal):
         self.is_terminal = is_terminal
-        
+
     def __hash__(self, *args, **kwargs):
         return hash(self.node_id)
+
+    def toString(self):
+        return "NODE: "+str(self.node_id)+" - Terminal: "+str(self.is_terminal)
