@@ -14,6 +14,9 @@ class Graph(object):
         node = Node(node_id, is_terminal)
         self.__nodeMap[node] = []
     
+    def addNodeToMap(self, node):
+        self.__nodeMap[node] = []
+        
     def addEdge(self, start_node_id, end_node_id, value):
         # adds the edge to the nodeMap. Will be insert in the list_of_edges of the node-key
         try:
