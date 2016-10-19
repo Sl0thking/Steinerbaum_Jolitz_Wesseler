@@ -67,12 +67,23 @@ class Graph(object):
                 return node
         raise Exception("None Node Found!")
 
-    def getEdges(self, node_id):
+    def getNodes(self):
+        return self.__nodeMap.keys()
+       
+
+    def getEdgesOfNode(self, node_id):
         edges = []
         for node in self.__nodeMap.keys():
             if node.getID() == node_id:
                 for edge in self.__nodeMap[node]:
                     edges.append(edge)
+        return edges
+
+    def getEdges(self):
+        edges = []
+        for node in self.__nodeMap.keys():
+            for edge in self.__nodeMap[node]:
+                edges.append(edge)
         return edges
 
     def getTerminals(self):
@@ -86,5 +97,5 @@ class Graph(object):
     def toString(self):
         for key in self.__nodeMap.keys():
             print "KEY: "+key.toString()
-            for edge in self.getEdges(key.getID()):
+            for edge in self.getEdgesOfNode(key.getID()):
                 print edge.toString()
