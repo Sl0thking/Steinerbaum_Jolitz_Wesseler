@@ -18,7 +18,7 @@ def getMinimalSpanningtree(graph):
                 #print "MSPNODE: "+str(msp_node)
                 for edge in oldGraph.getEdgesOfNode(msp_node.getID()):
                     #print edge
-                    if finalEdge == None:
+                    if finalEdge is None:
                         finalEdge = edge
                     else:
                         if edge.getValue() < finalEdge.getValue() and edge.getEndNode() not in msp.getNodes():
@@ -30,7 +30,6 @@ def getMinimalSpanningtree(graph):
                 #print "ADD EDGE: "+str(finalEdge)
                 msp.addEdge(finalEdge.getStartNode().getID(), finalEdge.getEndNode().getID(), finalEdge.getValue())
         msp.addNode(node.getID(), node.isTerminal())
-    print oldGraph.getNodes() == msp.getNodes()
     return msp
 
 def getSpanningTree(graph):
