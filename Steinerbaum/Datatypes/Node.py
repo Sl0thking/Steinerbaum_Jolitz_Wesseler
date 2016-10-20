@@ -16,14 +16,14 @@ class Node(object):
     def setTerminal(self, is_terminal):
         self.is_terminal = is_terminal
 
-    def __hash__(self, *args, **kwargs):
+    def __hash__(self):
         return hash(self.getID())
 
     def __eq__(self, other):
         return self.getID() == other.getID()
     
     def __repr__(self):
-        return "NODE: "+str(self.getID())+" - Terminal: "+str(self.isTerminal())
+        return self.getID()
 
     def toString(self):
         return "NODE: "+str(self.getID())+" - Terminal: "+str(self.isTerminal())

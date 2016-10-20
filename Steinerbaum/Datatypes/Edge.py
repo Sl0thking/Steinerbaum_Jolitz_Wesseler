@@ -26,5 +26,8 @@ class Edge(object):
     def setValue(self, value):
         self.value = float(value)
 
+    def __repr__(self):
+        return str(self.start_node.getID())+" to "+str(self.end_node.getID())
+
     def toString(self):
         return "Edge from "+str(self.start_node.getID())+" to "+str(self.end_node.getID())+" - VALUE: "+str(self.value)

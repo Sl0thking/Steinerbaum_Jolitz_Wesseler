@@ -21,22 +21,22 @@ class Graph(object):
         
     def addEdge(self, start_node_id, end_node_id, value):
         # adds the edge to the nodeMap. Will be insert in the list_of_edges of the node-key
-        try:
-            for node in self.__nodeMap.keys():
-                if node.getID() == start_node_id:
-                    start_node = node
-                if node.getID() == end_node_id:
-                    end_node = node
-            #print "START: "+ str(start_node)
-            #print "END: "+str(end_node)
+        #try:
+        for node in self.__nodeMap.keys():
+            if node.getID() == start_node_id:
+                start_node = node
+            if node.getID() == end_node_id:
+                end_node = node
+        #print "START: "+ str(start_node)
+        #print "END: "+str(end_node)
 
-            new_edge = Edge(start_node, end_node, value)
-            self.__nodeMap[start_node].append(new_edge)
-            new_edge = Edge(end_node, start_node, value)
-            self.__nodeMap[end_node].append(new_edge)
+        new_edge = Edge(start_node, end_node, value)
+        self.__nodeMap[start_node].append(new_edge)
+        new_edge = Edge(end_node, start_node, value)
+        self.__nodeMap[end_node].append(new_edge)
 
-        except Exception, e:
-            print "EXCEPTION in Graph.addEdge "+str(e)
+        #except Exception, e:
+        #    print "EXCEPTION in Graph.addEdge "+str(e)
 
     def modifyEdgeValue(self, start_node_id, end_node_id, value):
         for edge_list in self.__nodeMap.values():
@@ -75,7 +75,8 @@ class Graph(object):
     def getEdgesOfNode(self, node_id):
         edges = []
         for node in self.__nodeMap.keys():
-            if node.getID() == node_id:
+            cur_id = node.getID()
+            if cur_id == node_id:
                 for edge in self.__nodeMap[node]:
                     edges.append(edge)
         return edges
