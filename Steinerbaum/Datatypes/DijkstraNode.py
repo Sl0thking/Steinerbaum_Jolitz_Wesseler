@@ -37,3 +37,14 @@ class DijkstraNode(Node):
         distance = -1
         is_visited = False
         prev_node = None
+        
+    def __str__(self):
+        string_rep = "NODE: "+str(self.node_id)
+        string_rep += " - Terminal: "+str(self.is_terminal) 
+        string_rep += " - Visited: " + str(self.is_visited)
+        string_rep += " - Distance: " + str(self.distance)
+        if(self.prev_node != None):
+            string_rep +" - Prev: " + str(self.prev_node)
+        else:
+            string_rep +" - Prev: NONE"
+        return string_rep

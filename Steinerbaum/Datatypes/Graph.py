@@ -12,10 +12,12 @@ class Graph(object):
     def addNode(self, node_id, is_terminal):
         # adds node to the nodeMap as key
         node = Node(node_id, is_terminal)
-        self.__nodeMap[node] = []
-    
+        self.addNodeToMap(node)
+        
     def addNodeToMap(self, node):
-        self.__nodeMap[node] = []
+        if not (self.__nodeMap.has_key(node)):
+            self.__nodeMap[node] = []
+            #print self.__nodeMap
         
     def addEdge(self, start_node_id, end_node_id, value):
         # adds the edge to the nodeMap. Will be insert in the list_of_edges of the node-key
@@ -64,7 +66,12 @@ class Graph(object):
     def getNodes(self):
         return self.__nodeMap.keys()
        
-
+    def getSumOfEdges(self):
+        edges_sum = 0
+        for edge in self.getEdges():
+            edges_sum += edge.getValue()
+        return edges_sum / 2 #Every Edge is doubled for both directions
+    
     def getEdgesOfNode(self, node_id):
         edges = []
         for node in self.__nodeMap.keys():

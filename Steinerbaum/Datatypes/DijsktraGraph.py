@@ -41,25 +41,41 @@ class DijsktraGraph(Graph):
             self.prepare_graph(start_node_id)
             unvisited_nodes = self.getNodes()
             current_node = self.getNodeWithMinDistance(unvisited_nodes)
-            while len(unvisited_nodes) > 0 and current_node != None and current_node.getID() == end_note_id:
+            
+            
+            #print "Current Node: " + current_node.toString()
+            while len(unvisited_nodes) > 0 and current_node != None and current_node.getID() != end_note_id:
                 neighbour_edges = self.getEdgesOfNode(current_node.getID())
+                #print "Check Neighbours of: " + str(current_node)
                 for edge in neighbour_edges:
                     neighbour_node = edge.getEndNode()
+                    #print "Check Neighbour " + str(neighbour_node)
                     if neighbour_node.isVisited() == False:
+                        #print "Is not visited"
+                        #print str(neighbour_node.getDistance())
                         possible_distance = current_node.getDistance() + edge.getValue()
+                        #print "Possible new distance is " + str(possible_distance)
                         if(neighbour_node.getDistance() == -1 or neighbour_node.getDistance() > possible_distance):
+                            #print "New distance"
                             neighbour_node.setDistance(possible_distance)
                             neighbour_node.setPrevNode(current_node)
+                            #print neighbour_node
+                #print "#########"
                 unvisited_nodes.remove(current_node)
+                #print "------------------"
+                #for node in unvisited_nodes:
+                    #print node
+                #print "##################"
                 current_node.setIsVisited(True)
                 current_node = self.getNodeWithMinDistance(unvisited_nodes)
+                #print "Current Node: " + current_node.toString()
             return self.constructGraph(self.getNode(end_note_id))
 
     def getNodeWithMinDistance(self, unvisited_nodes):
         if(len(unvisited_nodes) > 0):
             min_node = unvisited_nodes[0]
             for node in unvisited_nodes:
-                if node.getDistance() < min_node.getDistance():
+                if node.getDistance() > -1 and node.getDistance() < min_node.getDistance():
                     min_node = node
             return min_node
         else:
@@ -68,20 +84,22 @@ class DijsktraGraph(Graph):
     def constructGraph(self, end_node):
         graph = Graph()
         current_node = end_node
+        #print "Prev Node: " + str(current_node.getPrevNode())
+        
         while(current_node.getPrevNode() != None):
-            graph.addNode(current_node)
-            graph.addNode(current_node.getPrevNode())
-            graph.addEdge(current_node.getID(), current_node.getPrevNode().getID(), (current_node.getPrevNode.getDistance() - current_node.getDistance()))
+            graph.addNode(current_node.getID(), current_node.isTerminal())
+            graph.addNode(current_node.getPrevNode().getID(), current_node.getPrevNode().isTerminal())
+            graph.addEdge(current_node.getID(), current_node.getPrevNode().getID(), (current_node.getDistance() - current_node.getPrevNode().getDistance()))
+            current_node = current_node.getPrevNode()
+
         return graph
     
     def prepare_graph(self, start_node_id):
         nodes = self.getNodes()
         for node in nodes:
+            node.setIsVisited(False)
+            node.setPrevNode(None)
             if node.getID() == start_node_id:
-                node.setIsVisited(False)
-                node.setDistance(-1)
-                node.setPrevNode(None)
-            else:
-                node.setIsVisited(True)
                 node.setDistance(0)
-                node.setPrevNode(None)
+            else:
+                node.setDistance(-1)

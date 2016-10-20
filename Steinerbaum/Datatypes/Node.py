@@ -19,6 +19,9 @@ class Node(object):
     def __hash__(self, *args, **kwargs):
         return hash(self.getID())
 
+    def __eq__(self, other):
+        return self.getID() == other.getID()
+    
     def __repr__(self):
         return "NODE: "+str(self.getID())+" - Terminal: "+str(self.isTerminal())
 
