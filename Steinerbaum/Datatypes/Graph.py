@@ -29,7 +29,7 @@ class Graph(object):
                     end_node = node
             #print "START: "+ str(start_node)
             #print "END: "+str(end_node)
-
+            
             new_edge = Edge(start_node, end_node, value)
             self.__nodeMap[start_node].append(new_edge)
             new_edge = Edge(end_node, start_node, value)

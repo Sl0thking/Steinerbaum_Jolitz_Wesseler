@@ -34,17 +34,16 @@ class DijsktraGraph(Graph):
         node = DijkstraNode(node_id, is_terminal)
         super(DijsktraGraph, self).addNodeToMap(node)
     
-    def getShortestPath(self, start_node_id, end_note_id):
-        if(start_node_id == end_note_id):
+    def getShortestPath(self, start_node_id, end_node_id):
+        if(start_node_id == end_node_id):
             return None
         else:
             self.prepare_graph(start_node_id)
             unvisited_nodes = self.getNodes()
             current_node = self.getNodeWithMinDistance(unvisited_nodes)
             
-            
             #print "Current Node: " + current_node.toString()
-            while len(unvisited_nodes) > 0 and current_node != None and current_node.getID() != end_note_id:
+            while len(unvisited_nodes) > 0 and current_node != None and current_node.getID() != end_node_id:
                 neighbour_edges = self.getEdgesOfNode(current_node.getID())
                 #print "Check Neighbours of: " + str(current_node)
                 for edge in neighbour_edges:
@@ -69,7 +68,7 @@ class DijsktraGraph(Graph):
                 current_node.setIsVisited(True)
                 current_node = self.getNodeWithMinDistance(unvisited_nodes)
                 #print "Current Node: " + current_node.toString()
-            return self.constructGraph(self.getNode(end_note_id))
+            return self.constructGraph(self.getNode(end_node_id))
 
     def getNodeWithMinDistance(self, unvisited_nodes):
         if(len(unvisited_nodes) > 0):
@@ -82,16 +81,20 @@ class DijsktraGraph(Graph):
             return None
     
     def constructGraph(self, end_node):
+        print "Construct graph: " + str(end_node)
         graph = Graph()
         current_node = end_node
         #print "Prev Node: " + str(current_node.getPrevNode())
         
         while(current_node.getPrevNode() != None):
+            print "blub"
+            #print "Current Node: " + str(current_node)
+            #print "Prev Node: " + str(current_node.getPrevNode())
             graph.addNode(current_node.getID(), current_node.isTerminal())
             graph.addNode(current_node.getPrevNode().getID(), current_node.getPrevNode().isTerminal())
             graph.addEdge(current_node.getID(), current_node.getPrevNode().getID(), (current_node.getDistance() - current_node.getPrevNode().getDistance()))
             current_node = current_node.getPrevNode()
-
+        #graph.toString()
         return graph
     
     def prepare_graph(self, start_node_id):
