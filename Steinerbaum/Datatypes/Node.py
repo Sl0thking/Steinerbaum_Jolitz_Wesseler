@@ -17,7 +17,10 @@ class Node(object):
         self.is_terminal = is_terminal
 
     def __hash__(self, *args, **kwargs):
-        return hash(self.node_id)
+        return hash(self.getID())
+
+    def __repr__(self):
+        return "NODE: "+str(self.getID())+" - Terminal: "+str(self.isTerminal())
 
     def toString(self):
-        return "NODE: "+str(self.node_id)+" - Terminal: "+str(self.is_terminal)
+        return "NODE: "+str(self.getID())+" - Terminal: "+str(self.isTerminal())

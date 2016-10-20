@@ -5,6 +5,7 @@ Created on 18.10.2016
 '''
 
 from Datatypes.Graph import Graph
+from utilities.utilities import *
 
 def createTestGraph():
     graph = Graph()
@@ -12,12 +13,13 @@ def createTestGraph():
     graph.addNode('v_2', True)
     graph.addNode('v_3', True)
     graph.addNode('v_4', True)
+
     graph.addNode('v_5', False)
     graph.addNode('v_6', False)
     graph.addNode('v_7', False)
     graph.addNode('v_8', False)
     graph.addNode('v_9', False)
-    
+
     graph.addEdge('v_1', 'v_9', 1)
     graph.addEdge('v_1', 'v_2', 10)
     graph.addEdge('v_2', 'v_3', 8)
@@ -71,7 +73,10 @@ def sumShortestPath(end_node):
 '''
 if __name__ == '__main__':
     graph = createTestGraph()
+    print "_________________"
     graph.toString()
+    print "_________________"
+    getSpanningTree(graph).toString()
     ''' 
     terminals = graph.getTerminals()
     for start_terminal_id in terminals:
