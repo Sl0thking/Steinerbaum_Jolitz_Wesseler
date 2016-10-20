@@ -35,6 +35,7 @@ class Graph(object):
         new_edge = Edge(end_node, start_node, value)
         self.__nodeMap[end_node].append(new_edge)
 
+
         #except Exception, e:
         #    print "EXCEPTION in Graph.addEdge "+str(e)
 
