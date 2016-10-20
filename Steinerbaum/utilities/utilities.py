@@ -2,33 +2,27 @@ from Datatypes.Graph import Graph
 
 def getMinimalSpanningtree(graph):
     msp = Graph()
-    oldGraph = graph
-    #visited_nodes = []
-    msp.addNode(oldGraph.getNodes()[0].getID(), oldGraph.getNodes()[0].isTerminal())
-    #visited_nodes.append(oldGraph.getNodes()[0].getID())
-    count = 0
-    while oldGraph.getNodes() != msp.getNodes() or count > 10:
-        count+=count
-        for node in oldGraph.getNodes():
+    old_graph = graph
+    msp.addNode(old_graph.getNodes()[0].getID(), old_graph.getNodes()[0].isTerminal())
+    while old_graph.getNodes() != msp.getNodes():
+        for node in old_graph.getNodes():
             #print "##### CURNODE: "+str(node)
-            #print "OLD: "+str(oldGraph.getNodes())
+            #print "OLD: "+str(old_graph.getNodes())
             #print "MSP: "+str(msp.getNodes())
-            finalEdge = None
+            final_edge = None
             for msp_node in msp.getNodes():
                 #print "MSPNODE: "+str(msp_node)
-                for edge in oldGraph.getEdgesOfNode(msp_node.getID()):
-                    #print edge
-                    if finalEdge is None:
-                        finalEdge = edge
+                for edge in old_graph.getEdgesOfNode(msp_node.getID()):
+                    if final_edge is None:
+                        final_edge = edge
                     else:
-                        if edge.getValue() < finalEdge.getValue() and edge.getEndNode() not in msp.getNodes():
-                            finalEdge = edge
-            if finalEdge.getEndNode() not in msp.getNodes():
-                #print "ADD NODE: "+str(finalEdge.getEndNode().getID())
-                msp.addNode(finalEdge.getEndNode().getID(), finalEdge.getEndNode().isTerminal())
-                #print msp.toString()
-                #print "ADD EDGE: "+str(finalEdge)
-                msp.addEdge(finalEdge.getStartNode().getID(), finalEdge.getEndNode().getID(), finalEdge.getValue())
+                        if edge.getValue() < final_edge.getValue() and edge.getEndNode() not in msp.getNodes():
+                            final_edge = edge
+            if final_edge.getEndNode() not in msp.getNodes():
+                #print "ADD NODE: "+str(final_edge.getEndNode().getID())
+                msp.addNode(final_edge.getEndNode().getID(), final_edge.getEndNode().isTerminal())
+                #print "ADD EDGE: "+str(final_edge)
+                msp.addEdge(final_edge.getStartNode().getID(), final_edge.getEndNode().getID(), final_edge.getValue())
         msp.addNode(node.getID(), node.isTerminal())
     return msp
 

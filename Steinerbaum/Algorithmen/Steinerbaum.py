@@ -69,6 +69,8 @@ if __name__ == '__main__':
         distance_graph.toString()
     else:
         print "_________________"
+        print "-- normalgraph --"
         graph.toString()
         print "_________________"
+        print "------ MST ------"
         getMinimalSpanningtree(graph).toString()
