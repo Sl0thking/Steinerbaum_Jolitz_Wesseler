@@ -10,7 +10,15 @@ class DijkstraNode(Node):
     '''
     classdocs
     '''
-    
+    def __init__(self, node_id, is_terminal):
+        '''
+        Constructor
+        '''
+        super(DijkstraNode, self).__init__(node_id, is_terminal)
+        distance = -1
+        is_visited = False
+        prev_node = None
+        
     def getDistance(self):
         return self.distance
     
@@ -29,15 +37,6 @@ class DijkstraNode(Node):
     def setIsVisited(self, visited):
         self.is_visited = visited
     
-    def __init__(self, node_id, is_terminal):
-        '''
-        Constructor
-        '''
-        super(DijkstraNode, self).__init__(node_id, is_terminal)
-        distance = -1
-        is_visited = False
-        prev_node = None
-        
     def __str__(self):
         string_rep = "NODE: "+str(self.node_id)
         string_rep += " - Terminal: "+str(self.is_terminal) 

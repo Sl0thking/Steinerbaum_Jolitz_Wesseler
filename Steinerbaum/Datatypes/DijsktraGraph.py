@@ -41,7 +41,9 @@ class DijsktraGraph(Graph):
             self.prepare_graph(start_node_id)
             unvisited_nodes = self.getNodes()
             current_node = self.getNodeWithMinDistance(unvisited_nodes)
-            
+            #print current_node
+            #print len(unvisited_nodes)
+            #print "current_node.getID() != end_node_id: " + str(current_node.getID() != end_node_id)
             #print "Current Node: " + current_node.toString()
             while len(unvisited_nodes) > 0 and current_node != None and current_node.getID() != end_node_id:
                 neighbour_edges = self.getEdgesOfNode(current_node.getID())
@@ -74,20 +76,22 @@ class DijsktraGraph(Graph):
         if(len(unvisited_nodes) > 0):
             min_node = unvisited_nodes[0]
             for node in unvisited_nodes:
-                if node.getDistance() > -1 and node.getDistance() < min_node.getDistance():
+                #print "MIN: " + str(node)
+                if (min_node.getDistance() == -1 and node.getDistance() > -1) or (node.getDistance() > -1 and node.getDistance() < min_node.getDistance()):
                     min_node = node
+                    #print min_node
             return min_node
         else:
             return None
     
     def constructGraph(self, end_node):
-        print "Construct graph: " + str(end_node)
+        #print "Construct graph: " + str(end_node)
         graph = Graph()
         current_node = end_node
         #print "Prev Node: " + str(current_node.getPrevNode())
         
         while(current_node.getPrevNode() != None):
-            print "blub"
+            #print "blub"
             #print "Current Node: " + str(current_node)
             #print "Prev Node: " + str(current_node.getPrevNode())
             graph.addNode(current_node.getID(), current_node.isTerminal())
