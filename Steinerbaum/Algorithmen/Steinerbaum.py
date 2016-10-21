@@ -36,7 +36,7 @@ def createTestGraph():
     return graph
 
 if __name__ == '__main__':
-    kevin1 = False
+    kevin1 = True
     graph = createTestGraph()
     #graph.toString()
 
@@ -68,7 +68,9 @@ if __name__ == '__main__':
                     distance_graph.addNode(start_end_node[1], True)
                     edgeValue = path.getSumOfEdges()
                     distance_graph.addEdge(start_end_node[0], start_end_node[1], edgeValue)
-            distance_graph.toString()
+            #distance_graph.toString()
+            min_distance_graph = getMinimalSpanningtree(distance_graph)
+            min_distance_graph.toString()
     else:
         print "_________________"
         print "-- normalgraph --"

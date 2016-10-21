@@ -28,16 +28,38 @@ class Graph(object):
             if node.getID() == end_node_id:
                 end_node = node
         #print "START: "+ str(start_node)
-        #print "END: "+str(end_node)
-
-        new_edge = Edge(start_node, end_node, value)
-        self.__nodeMap[start_node].append(new_edge)
-        new_edge = Edge(end_node, start_node, value)
-        self.__nodeMap[end_node].append(new_edge)
+        #print "END: " + str(end_node)
+        
+        if not self.edgeExist(start_node, end_node):
+            new_edge = Edge(start_node, end_node, value)
+            self.__nodeMap[start_node].append(new_edge)
+            new_edge = Edge(end_node, start_node, value)
+            self.__nodeMap[end_node].append(new_edge)
 
 
         #except Exception, e:
         #    print "EXCEPTION in Graph.addEdge "+str(e)
+    
+    def edgeExist(self, start_node, end_node):
+        start_edges = self.getEdgesOfNode(start_node.getID())
+        end_edges = self.getEdgesOfNode(end_node.getID()) 
+        
+        print start_edges
+        print end_edges
+        
+        start_to_end_exists = False
+        end_to_start_exists = False
+        
+        for edge in start_edges:
+            if edge.getStartNode() == start_node and edge.getEndNode() == end_node:
+                start_to_end_exists = True
+                
+        for edge in end_edges:
+            if edge.getStartNode() == end_node and edge.getEndNode() == start_node:
+                end_to_start_exists = True
+        
+        return start_to_end_exists and end_to_start_exists
+    
 
     def modifyEdgeValue(self, start_node_id, end_node_id, value):
         for edge_list in self.__nodeMap.values():
