@@ -18,12 +18,14 @@ if __name__ == '__main__':
     print "#                Source graph              #"
     print "############################################"
     print graph
+    wait = raw_input()
     shortest_paths = getShortestPaths(graph)
     distance_graph = getDistanceGraph(graph, shortest_paths)
     print "############################################"
     print "#               Distance Graph             #"
     print "############################################"
     print distance_graph
+    wait = raw_input()
     min_distance_graph = getMinimalSpanningtree(distance_graph)
     transform_graph = transformDistanceToSteinerbaum(min_distance_graph, shortest_paths)
     print "############################################"
