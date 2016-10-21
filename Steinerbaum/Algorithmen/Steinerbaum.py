@@ -65,14 +65,15 @@ if __name__ == '__main__':
             for path in shortest_paths:
                 #path.toString()
                 start_end_node = path.getTerminals()
-                print start_end_node
+                #print start_end_node
                 if len(start_end_node) == 2:
                     distance_graph.addNode(start_end_node[0], True)
                     distance_graph.addNode(start_end_node[1], True)
                     edgeValue = path.getSumOfEdges()
                     distance_graph.addEdge(start_end_node[0], start_end_node[1], edgeValue)
-            distance_graph.toString()
+            #distance_graph.toString()
             min_distance_graph = getMinimalSpanningtree(distance_graph)
+            print "----- MST ------"
             min_distance_graph.toString()
     else:
         print "_________________"
