@@ -26,6 +26,9 @@ class Edge(object):
     def setValue(self, value):
         self.value = float(value)
 
+    def __repr__(self):
+        return str(self.start_node.getID())+" to "+str(self.end_node.getID())
+
     def __eq__(self, other):
         return self.getStartNode() == other.getStartNode() and self.getEndNode() == other.getEndNode()
 

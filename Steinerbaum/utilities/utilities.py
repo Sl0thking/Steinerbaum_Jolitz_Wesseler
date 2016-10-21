@@ -1,20 +1,30 @@
 from Datatypes.Graph import Graph
 
 def getMinimalSpanningtree(graph):
-    minimalSpanningtree = Graph()
-    tempTree = Graph()
-    oldGraph = graph
-    treeValue = 0
-    for node in oldGraph.getNodes():
-        tempTree.addNode(node)
-    minimalSpanningtree.addNode(node, True)
-    edge = None
-    for current_edge in oldGraph.getEdgesOfNode(node.getID()):
-        if edge is None:
-            edge = current_edge
-        elif True:
-            pass
-    pass
+    msp = Graph()
+    old_graph = graph
+    msp.addNode(old_graph.getNodes()[0].getID(), old_graph.getNodes()[0].isTerminal())
+    while old_graph.getNodes() != msp.getNodes():
+        for node in old_graph.getNodes():
+            #print "##### CURNODE: "+str(node)
+            #print "OLD: "+str(old_graph.getNodes())
+            #print "MSP: "+str(msp.getNodes())
+            final_edge = None
+            for msp_node in msp.getNodes():
+                #print "MSPNODE: "+str(msp_node)
+                for edge in old_graph.getEdgesOfNode(msp_node.getID()):
+                    if final_edge is None:
+                        final_edge = edge
+                    else:
+                        if edge.getValue() < final_edge.getValue() and edge.getEndNode() not in msp.getNodes():
+                            final_edge = edge
+            if final_edge.getEndNode() not in msp.getNodes():
+                #print "ADD NODE: "+str(final_edge.getEndNode().getID())
+                msp.addNode(final_edge.getEndNode().getID(), final_edge.getEndNode().isTerminal())
+                #print "ADD EDGE: "+str(final_edge)
+                msp.addEdge(final_edge.getStartNode().getID(), final_edge.getEndNode().getID(), final_edge.getValue())
+        msp.addNode(node.getID(), node.isTerminal())
+    return msp
 
 def getSpanningTree(graph):
     spanning_tree = Graph()
@@ -48,4 +58,3 @@ def getSpanningTree(graph):
         addable_node.toString()
         nodes.remove(nodes[0])
     return spanning_tree
-
