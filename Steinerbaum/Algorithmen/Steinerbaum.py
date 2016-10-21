@@ -38,46 +38,61 @@ def createTestGraph():
     
     return graph
 
-if __name__ == '__main__':
-    kevin1 = True
-    graph = createTestGraph()
-    #graph.toString()
+def getShortestPaths(graph):
+    dijkstra_graph = DijsktraGraph()
+    dijkstra_graph.importFromGraph(graph)
+    shortest_paths = {}
+    terminals = graph.getTerminals()
+    for start_terminal_id in terminals:
+        for end_terminal_id in terminals:
+            if(start_terminal_id != end_terminal_id):
+                short_graph = dijkstra_graph.getShortestPath(start_terminal_id, end_terminal_id)
+                shortest_paths[(start_terminal_id, end_terminal_id)] = short_graph
+    return shortest_paths
 
-    if kevin1:
-            #graph.toString()
-            dijkstra_graph = DijsktraGraph()
-            dijkstra_graph.importFromGraph(graph)
-            shortest_paths = []
-            
-            terminals = graph.getTerminals()
-            #print terminals
-            for start_terminal_id in terminals:
-                for end_terminal_id in terminals:
-                    if(start_terminal_id != end_terminal_id):
-                        #print "DIJKSTRA START: " + start_terminal_id + " END: " + end_terminal_id
-                        short_graph = dijkstra_graph.getShortestPath(start_terminal_id, end_terminal_id)
-                        #print short_graph.toString()
-                        print "A: " + start_terminal_id + " - E: " + end_terminal_id
-                        short_graph.toString()
-                        shortest_paths.append(short_graph)
-            #Build Distance Graph
-            distance_graph = Graph()
-            for path in shortest_paths:
-                #path.toString()
-                start_end_node = path.getTerminals()
-                print start_end_node
-                if len(start_end_node) == 2:
-                    distance_graph.addNode(start_end_node[0], True)
-                    distance_graph.addNode(start_end_node[1], True)
-                    edgeValue = path.getSumOfEdges()
-                    distance_graph.addEdge(start_end_node[0], start_end_node[1], edgeValue)
-            distance_graph.toString()
-            min_distance_graph = getMinimalSpanningtree(distance_graph)
-            min_distance_graph.toString()
-    else:
-        print "_________________"
-        print "-- normalgraph --"
-        graph.toString()
-        print "_________________"
-        print "------ MST ------"
-        getMinimalSpanningtree(graph).toString()
+def getDistanceGraph(graph, shortest_paths):
+    #Build Distance Graph
+    distance_graph = Graph()
+    terminals = graph.getTerminals()
+    for x in terminals:
+        for y in terminals:
+            if x != y:
+                start_end_node = shortest_paths[(x, y)].getTerminals()
+                distance_graph.addNode(start_end_node[0], True)
+                distance_graph.addNode(start_end_node[1], True)
+                edgeValue = shortest_paths[(x, y)].getSumOfEdges()
+                distance_graph.addEdge(start_end_node[0], start_end_node[1], edgeValue)
+    return distance_graph
+
+def transformDistanceToSteinerbaum(min_distance_graph, shortest_paths):
+    transform_graph = Graph()
+    edges = min_distance_graph.getEdges()
+    for edge in edges:
+        start_node = edge.getStartNode()
+        end_node = edge.getEndNode()
+        if start_node != end_node:
+            shortest_path = shortest_paths[(start_node.getID(), end_node.getID())]
+            for node in shortest_path.getNodes():
+                transform_graph.addNode(node.getID(), node.isTerminal())
+            for edge in shortest_path.getEdges():
+                transform_graph.addEdge(edge.getStartNode().getID(), edge.getEndNode().getID(), edge.getValue())
+    return transform_graph
+
+if __name__ == '__main__':
+    graph = createTestGraph()
+    print "############################################"
+    print "#                Source graph              #"
+    print "############################################"
+    print graph
+    shortest_paths = getShortestPaths(graph)
+    distance_graph = getDistanceGraph(graph, shortest_paths)
+    print "############################################"
+    print "#               Distance Graph             #"
+    print "############################################"
+    print distance_graph
+    min_distance_graph = getMinimalSpanningtree(distance_graph)
+    transform_graph = transformDistanceToSteinerbaum(min_distance_graph, shortest_paths)
+    print "############################################"
+    print "#                Steinerbaum               #"
+    print "############################################"
+    print transform_graph

@@ -44,8 +44,8 @@ class Graph(object):
         start_edges = self.getEdgesOfNode(start_node.getID())
         end_edges = self.getEdgesOfNode(end_node.getID()) 
         
-        print start_edges
-        print end_edges
+        #print start_edges
+        #print end_edges
         
         start_to_end_exists = False
         end_to_start_exists = False
@@ -124,3 +124,20 @@ class Graph(object):
             print "KEY: "+key.toString()
             for edge in self.getEdgesOfNode(key.getID()):
                 print "\t"+edge.toString()
+     
+    def __str__(self):
+        return_str = ""
+        for key in self.__nodeMap.keys():
+            return_str += "KEY: "+key.toString() + "\n"
+            for edge in self.getEdgesOfNode(key.getID()):
+                return_str += "\t" +edge.toString() + "\n"
+        return return_str
+    
+    def __repr__(self):
+        return_str = ""
+        for key in self.__nodeMap.keys():
+            return_str += "KEY: "+key.toString() + "\n"
+            for edge in self.getEdgesOfNode(key.getID()):
+                return_str += "\t" +edge.toString() + "\n"
+        return return_str
+                
