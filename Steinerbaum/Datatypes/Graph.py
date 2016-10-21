@@ -115,7 +115,7 @@ class Graph(object):
     def __str__(self):
         return_str = ""
         for key in self.__nodeMap.keys():
-            return_str += "KEY: "+key.toString() + "\n"
+            return_str += key.toString() + "\n"
             for edge in self.getEdgesOfNode(key.getID()):
                 return_str += "\t" +edge.toString() + "\n"
         return return_str
@@ -123,7 +123,7 @@ class Graph(object):
     def __repr__(self):
         return_str = ""
         for key in self.__nodeMap.keys():
-            return_str += "KEY: "+key.toString() + "\n"
+            return_str += key.toString() + "\n"
             for edge in self.getEdgesOfNode(key.getID()):
                 return_str += "\t" +edge.toString() + "\n"
         return return_str

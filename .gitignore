@@ -49,4 +49,4 @@ Temporary Items
 /.metadata/
 /.idea/
 
-.pyc
+*.pyc
