@@ -19,9 +19,12 @@ def createTestGraph():
     graph.addNode('v_7', False)
     graph.addNode('v_8', False)
     graph.addNode('v_9', False)
+    #graph.addNode('kill', False)
     
     graph.addEdge('v_1', 'v_9', 1)
     graph.addEdge('v_1', 'v_2', 10)
+    #graph.addEdge('v_1', 'kill', 40)
+    #graph.addEdge('kill', 'v_2', 50)
     graph.addEdge('v_2', 'v_3', 8)
     graph.addEdge('v_2', 'v_6', 1)
     graph.addEdge('v_3', 'v_4', 9)
@@ -68,7 +71,7 @@ if __name__ == '__main__':
                     distance_graph.addNode(start_end_node[1], True)
                     edgeValue = path.getSumOfEdges()
                     distance_graph.addEdge(start_end_node[0], start_end_node[1], edgeValue)
-            #distance_graph.toString()
+            distance_graph.toString()
             min_distance_graph = getMinimalSpanningtree(distance_graph)
             min_distance_graph.toString()
     else:
