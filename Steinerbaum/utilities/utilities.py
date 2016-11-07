@@ -1,5 +1,6 @@
 from Datatypes.Graph import Graph
 from Datatypes.DijsktraGraph import DijsktraGraph
+import random
 
 def createTestGraph():
     graph = Graph()
@@ -74,7 +75,8 @@ def transformDistanceToSteinerbaum(min_distance_graph, shortest_paths):
 def getMinimalSpanningtree(graph):
     msp = Graph()
     old_graph = graph
-    msp.addNode(old_graph.getNodes()[0].getID(), old_graph.getNodes()[0].isTerminal())
+    rand = random.randint(0, len(old_graph.getNodes())-1)
+    msp.addNode(old_graph.getNodes()[rand].getID(), old_graph.getNodes()[rand].isTerminal())
     while old_graph.getNodes() != msp.getNodes():
         for node in old_graph.getNodes():
             final_edge = None
